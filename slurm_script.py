@@ -51,7 +51,7 @@ class SlurmScript:
             Writes the script, the name of the executable created is 
             determined by the class-member variable script_name
         
-            Note: this method sets the mode to octal 755 r/w access
+            Note: this method sets the mode to octal 755 r/w/x access
         """
         file = open( self.script_name, 'w' )
 
@@ -59,7 +59,11 @@ class SlurmScript:
         file.write( "\n" )
 
         for item in self.slurm_args:
-            file.write( self.sbatch + item[ 0 ] + "=" + item[ 1 ] )
+            if '--' in item[ 0 ]:
+                file.write( self.sbatch + '='.join( item ) )
+            else:
+                file.write( self.sbatch + ' '.join( item ) )
+
             file.write( "\n" )
 
         if len( self.dependencies ) > 0:
