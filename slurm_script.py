@@ -20,13 +20,13 @@ class SlurmScript:
             :param script_name: name of the executable to be created by SlurmScript.write()
 
             :param slurm_args: list of slurm arguments to be written to the file. This
-                               param is in the form of [ '--mem 4g', '--time 20:00', ... ]
+                               param is in the form of [ '--mem=4g', '--time=20:00', ... ]
              Note: the #SBATCH flag is written to the file before each of these arguments
         
             :param dependency_mode: Optional mode of dependencies this script is dependant upon.
         """
         self.commands = [ SlurmScript.Command( command ) ]
-        self.slurm_args = [ item.split() for item in slurm_args ]
+        self.slurm_args = [ item.split( '=' ) for item in slurm_args ]
         self.script_name = script_name
 
         self.dependencies = list()
@@ -130,10 +130,13 @@ class SlurmScript:
                   #SBATCH is written before any arguments, do not include it
                   here
             :param new_arg: argument to be written to script produced by this
-                            obect's write method, in the format '--key value', or 
+                            obect's write method, in the format '--key=value', or 
                             of the form '-c 1'
         """
-        self.slurm_args.append( new_arg.split() )
+        if '--' in new_arg:
+            self.slurm_args.append( new_arg.split() )
+        else:
+            self.slurm_args.append( new_arg.split( '=') )
 
     def add_dependencies( self, job_num_list ):
         """
