@@ -147,6 +147,15 @@ class SlurmScript:
         for current_job in job_num_list:
             self.dependencies.append( current_job )
 
+    def add_dependency( self, job_num ):
+        """
+            Add a single dependency that this object depends on.
+        
+            :param job_num: job number for this script to rely on
+        """
+
+        self.dependencies.append( current_job )
+
     def set_dependency_mode( self, new_mode ):
         """
             Sets the dependency mode of this job's dependencies
