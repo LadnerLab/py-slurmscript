@@ -8,7 +8,7 @@ class SlurmScript:
         any job numbers generated. This class also supports the import of modules,
         if this package is available on your system.
     """
-    def __init__( self, command, script_name, slurm_args, dependency_mode = "afterany" ):
+    def __init__( self, script_name, command, slurm_args, dependency_mode = "afterany" ):
         """
             Constructor for SlurmScript class
 
@@ -114,7 +114,7 @@ class SlurmScript:
         """
         state_code = self.get_state_code()
         
-        return ( state_code != None ) and ( !( state_code == 'PENDING' or state_code == 'RUNNING' ) )
+        return ( state_code != None ) and ( not ( state_code == 'PENDING' or state_code == 'RUNNING' ) )
 
     def get_state_code( self ):
         """

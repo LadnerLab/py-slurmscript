@@ -1,4 +1,4 @@
-**SlurmScript( command, script_name, slurm_ages, dependency_mode = "afterany" )**
+**SlurmScript( script_name, command, slurm_ages, dependency_mode = "afterany" )**
 ```
 Constructor for SlurmScript class
 

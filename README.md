@@ -10,7 +10,7 @@ API Documentation can be found [here](docs.md)
 ``` python
 import slurm_script
 
-script = slurm_script.SlurmScript( "echo $(PWD)", "test_script", 
+script = slurm_script.SlurmScript( "test_script", "echo $(PWD)", 
                                    [ '--time=20:00', '-c 1', '--mem=4G' ], 
 								   dependency_mode = "afterok" 
 								 )
