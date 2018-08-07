@@ -46,7 +46,7 @@ class SlurmScript:
         def add_arg( self, to_add ):
             self.command += to_add
 
-    def write_script( self ):
+    def write( self ):
         """
             Writes the script, the name of the executable created is 
             determined by the class-member variable script_name
@@ -192,4 +192,18 @@ class SlurmScript:
             :param to_add: string module to add
         """
         self.modules.append( to_add )
+
+    def execute( self ):
+        """
+            Writes script according to its variables, 
+            executes the script in a subshell,
+            and then deletes the result once it has been started.
+
+            :returns: string job_number of submitted sbatch job
+        """
+        self.write()
+        job_number = self.run()
+        os.remove( self.name )
+
+        return job_number
  
