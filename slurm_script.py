@@ -104,13 +104,15 @@ class SlurmScript:
     def is_finished( self ):
         """
             Determines whether or not this job has been completed,
-            where completion is determined by an empty output from
-            squeue -h -j $job_num, this method does not determine the
-            success/failure of any given job number, only whether or not
-            it is currently running.
+            where completion is determined by a job state code 
+            that is neither PENDING nor RUNNING, not that this method does not
+            determine the success/failure of any given job number, 
+            only whether or not it is currently running.
         """
-        output = subprocess.getoutput( "squeue -h -j " + self.job_num )
-        return not output
+        output = subprocess.getoutput( "sacct -j %s -b -n -p -X " % self.job_num )
+        output = output.split( '|' )[ 1 ]
+        return not ( output == 'PENDING' or output == 'RUNNING' )
+
 
     def set_shebang( self, new_shebang ):
         """

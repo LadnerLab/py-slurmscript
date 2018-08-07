@@ -32,10 +32,10 @@ Note: this method sets the mode access mode to octal 755
 **SlurmScript.is_finished()**
 ```
 Determines whether or not this job has been completed,
-where completion is determined by an empty output from
-squeue -h -j $job_num, this method does not determine the
-success/failure of any given job number, only whether or not
-it is currently running.
+where completion is determined by a job state code 
+that is neither PENDING nor RUNNING, not that this method does not
+determine the success/failure of any given job number, 
+only whether or not it is currently running.
 ```
 **SlurmScript.set_shebang( new_shebang )**
 ```
