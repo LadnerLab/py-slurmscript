@@ -36,6 +36,18 @@ where completion is determined by a job state code
 that is neither PENDING nor RUNNING, not that this method does not
 determine the success/failure of any given job number, 
 only whether or not it is currently running.
+
+:returns: boolean True/False depending on whether or not a job is finished, or False
+          if the job has not started, and therefore has no job number
+
+```
+**SlurmScript.get_state_code**
+```
+Gets the state of a job, after it has been submitted to the slurm handler
+Note that because a job needs to have been started to have a job number,
+this method will return None if this job has no job number
+            
+:returns: string state code of job, or None if 'self' has no job_number
 ```
 **SlurmScript.set_shebang( new_shebang )**
 ```

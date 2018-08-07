@@ -108,10 +108,29 @@ class SlurmScript:
             that is neither PENDING nor RUNNING, not that this method does not
             determine the success/failure of any given job number, 
             only whether or not it is currently running.
+        
+            :returns: boolean True/False depending on whether or not a job is finished, or False
+                      if the job has not started, and therefore has no job number
         """
-        output = subprocess.getoutput( "sacct -j %s -b -n -p -X " % self.job_num )
-        output = output.split( '|' )[ 1 ]
-        return not ( output == 'PENDING' or output == 'RUNNING' )
+        state_code = self.get_state_code()
+        
+        return ( state_code not None ) and ( not ( state_code == 'PENDING' or state_code == 'RUNNING' ) )
+
+    def get_state_code( self ):
+        """
+           Gets the state of a job, after it has been submitted to the slurm handler
+           Note that because a job needs to have been started to have a job number,
+           this method will return None if this job has no job number
+            
+           :returns: string state code of job, or None if 'self' has no job_number
+        """
+        job_state = None
+
+        if self.job_num:
+            job_state = subprocess.getoutput( "sacct -j %s -b -n -p -X " % self.job_num )
+            job_state = job_state.split( '|' )[ 1 ]
+
+        return job_state
 
 
     def set_shebang( self, new_shebang ):
