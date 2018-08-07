@@ -14,7 +14,7 @@ class SlurmScript:
 
             :param command: command to be run by slurm server, e.g., 'cat *.fasta'
              Note: bash shebang written to the file, but can be set by user if the standard
-                  '#!/bin/sh' is not used by your system
+                  '#!/bin/bash' is not used by your system
              Note: srun will be prepended to the command, so the above becomes 'srun cat *.fasta'
              Note: multiple job steps can be included in a fasta file, but only one can be provided upon initialization
         
@@ -41,7 +41,7 @@ class SlurmScript:
         self.job_num = 0
 
         self.sbatch = "#SBATCH "
-        self.shebang = "#!/bin/sh "
+        self.shebang = "#!/bin/bash "
 
     class Command:
         def __init__( self, string_command ):
