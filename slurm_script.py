@@ -27,7 +27,7 @@ class SlurmScript:
         """
         self.commands = [ SlurmScript.Command( command ) ]
         self.slurm_args = [ item.split( '=' ) for item in slurm_args ]
-        self.script_name = script_name
+        self.script_name = os.getcwd() + '/' + script_name
 
         self.dependencies = list()
         self.dependency_mode = dependency_mode
@@ -203,7 +203,7 @@ class SlurmScript:
         """
         self.write()
         job_number = self.run()
-        os.remove( self.name )
+        os.remove( self.script_name )
 
         return job_number
  
