@@ -1,5 +1,4 @@
-**SlurmScript**
-
+**SlurmScript( command, script_name, slurm_ages, dependency_mode = "afterany" )**
 ```
 Constructor for SlurmScript class
 
@@ -38,12 +37,12 @@ squeue -h -j $job_num, this method does not determine the
 success/failure of any given job number, only whether or not
 it is currently running.
 ```
-**SlurmScript.set_shebang()**
+**SlurmScript.set_shebang( new_shebang )**
 ```
 Sets the shebang (Default '#!/bin/bash')
 to string new_shebang
 ```
-**SlurmScript.add_command()**
+**SlurmScript.add_command( in_command )**
 
 ```
 Adds a command, (job-step) to be written to the output
@@ -54,7 +53,7 @@ command recognized by your bash/slurm environment
 Note: srun is prepended to the command as it is written to the file, do not
 include this yourself
 ```
-**SlurmScript.add_slurm_arg()**
+**SlurmScript.add_slurm_arg( new_arg )**
 ```
 Adds a new argument to be written to the executable created by this script,
 
@@ -65,25 +64,25 @@ here
 obect's write method, in the format '--key=value', or 
 of the form '-c 1'
 ```
-**SlurmScript.add_dependencies()**
+**SlurmScript.add_dependencies( job_num_list )**
 ```     
 Add a list of dependencies that this object relies upon.
 
 :param job_num_list: list of job numbers this script is to rely upon
 ```
-**SlurmScript.add_dependency()**
+**SlurmScript.add_dependency( job_num )**
 ```     
 Add a single dependency that this object depends on.
 
 :param job_num: job number for this script to rely on
 ```
-**SlurmScript.set_dependency_mode()**
+**SlurmScript.set_dependency_mode( new_mode )**
 ```     
 Sets the dependency mode of this job's dependencies
 :param new_mode: slurm dependent mode of dependencies,
 		can include 'afterany', 'afterok', etc
 ```
-**SlurmScript.add_modules()**
+**SlurmScript.add_modules( modules_list )**
 ``` 
 Adds a list of string modules to be loaded before execution of
 any job steps in the script. 
@@ -93,7 +92,7 @@ before any of the dependencies in modules_list
 :param modules_list: list of string modules to load
 [ 'python/3.6', 'blast+', ... ]
 ```
-**SlurmScript.add_module()**
+**SlurmScript.add_module( to_add )**
 ```     
 Add a single string module to the list of modules 
 that will be loaded before execution of any jobsteps in script.
