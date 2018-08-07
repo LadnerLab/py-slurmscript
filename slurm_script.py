@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 class SlurmScript:
     """
@@ -26,7 +27,11 @@ class SlurmScript:
             :param dependency_mode: Optional mode of dependencies this script is dependant upon.
         """
         self.commands = [ SlurmScript.Command( command ) ]
-        self.slurm_args = [ item.split( '=' ) for item in slurm_args ]
+
+        self.slurm_args = list()
+        for item in slurm_args:
+            self.add_slurm_arg( item )
+        
         self.script_name = os.getcwd() + '/' + script_name
 
         self.dependencies = list()
