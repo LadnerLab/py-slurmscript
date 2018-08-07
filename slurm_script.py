@@ -114,7 +114,7 @@ class SlurmScript:
 
     def set_shebang( self, new_shebang ):
         """
-            Sets the shebang (Default '#!/bin/sh')
+            Sets the shebang (Default '#!/bin/bash')
             to string new_shebang
         """
         self.shebang = new_shebang
