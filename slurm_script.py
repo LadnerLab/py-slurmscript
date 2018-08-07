@@ -114,7 +114,7 @@ class SlurmScript:
         """
         state_code = self.get_state_code()
         
-        return ( state_code not None ) and ( not ( state_code == 'PENDING' or state_code == 'RUNNING' ) )
+        return ( state_code != None ) and ( !( state_code == 'PENDING' or state_code == 'RUNNING' ) )
 
     def get_state_code( self ):
         """
